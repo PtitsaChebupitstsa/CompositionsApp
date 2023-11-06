@@ -2,7 +2,7 @@ package com.example.compositionapp.data
 
 import com.example.compositionapp.domain.entity.GameSettings
 import com.example.compositionapp.domain.entity.Level
-import com.example.compositionapp.domain.entity.Question
+import com.example.compositionsapp.domain.entity.Question
 import com.example.compositionapp.domain.repository.GameRepository
 import kotlin.math.max
 import kotlin.math.min

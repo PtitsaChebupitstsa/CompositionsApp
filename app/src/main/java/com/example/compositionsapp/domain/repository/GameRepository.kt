@@ -2,10 +2,10 @@ package com.example.compositionapp.domain.repository
 
 import com.example.compositionapp.domain.entity.GameSettings
 import com.example.compositionapp.domain.entity.Level
-import com.example.compositionapp.domain.entity.Question
+import com.example.compositionsapp.domain.entity.Question
 
 interface GameRepository {
 
-    fun generateQuestion(maxSumValue:Int, countOfOptions:Int):Question
+    fun generateQuestion(maxSumValue:Int, countOfOptions:Int): Question
     fun getGameSettings(level: Level):GameSettings
 }
