@@ -9,6 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import com.example.compositionapp.domain.entity.GameResult
+import com.example.compositionsapp.R
 import com.example.compositionsapp.databinding.FragmentGameFinishedBinding
 import java.lang.RuntimeException
 
@@ -31,9 +32,11 @@ class GameFinishedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //нажатие кноппи назад в фрагменте
+        endGameStats()
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object :OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
               retryGame()
+
             }
         })
         binding.buttonRetry.setOnClickListener {
@@ -44,7 +47,26 @@ class GameFinishedFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parsArgs()
+
     }
+    private fun endGameStats(){
+        binding.emojiResult.setImageResource(getSmileResId())
+        binding.tvRequiredAnswer.text = getString(R.string.required_number_of_correct,gameResult.gameSettings.minCountOfRightAnswers.toString())
+        binding.tvScoreAnswer.text = getString(R.string.your_score,gameResult.countOfRightAnswers.toString())
+        binding.tvRequiredPercentage.text = getString(R.string.required_percentage_of_correct_answers,gameResult.gameSettings.minPercentOfRightAnswers.toString())
+        binding.tvScorePrecentage.text = getString(R.string.percentage_of_correct_answers,getPercentOfRightAnswer().toString())
+
+    }
+    private fun getPercentOfRightAnswer()= with(gameResult){
+        if (countOfQuestions==0) 0 else ((countOfRightAnswers/countOfQuestions.toDouble())*100).toInt()
+    }
+private fun getSmileResId():Int {
+    return if (gameResult.winner) {
+        R.drawable.ic_smile
+    } else {
+        R.drawable.ic_sad
+    }
+}
 
     override fun onDestroyView() {
         super.onDestroyView()

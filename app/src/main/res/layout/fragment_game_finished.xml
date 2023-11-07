@@ -10,7 +10,8 @@
         android:id="@+id/emoji_result"
         android:layout_width="316dp"
         android:layout_height="258dp"
-        android:src="@drawable/circle_background"
+        android:layout_margin="15dp"
+        android:src="@drawable/ic_smile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

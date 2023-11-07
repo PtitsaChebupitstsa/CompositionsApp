@@ -134,8 +134,8 @@
         app:layout_constraintBottom_toTopOf="@id/progressBar"
         app:layout_constraintTop_toBottomOf="@+id/tv_left_number"
         app:layout_constraintVertical_chainStyle="spread"
-        tools:layout_editor_absoluteX="77dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="77dp" />
 
     <ProgressBar
         android:id="@+id/progressBar"
