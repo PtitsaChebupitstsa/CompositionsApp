@@ -19,13 +19,20 @@ import java.lang.RuntimeException
 class GameFragment : Fragment() {
 
     private lateinit var level: Level
-    private val viewModel: GameViewModel by lazy {
-        ViewModelProvider(
-            this, ViewModelProvider
-                .AndroidViewModelFactory
-                .getInstance(requireActivity().application)
-        )[GameViewModel::class.java]
-    }
+//    private val viewModel: GameViewModel by lazy {
+//        ViewModelProvider(
+//            this, ViewModelProvider
+//                .AndroidViewModelFactory
+//                .getInstance(requireActivity().application)
+//        )[GameViewModel::class.java]
+//    }
+    private val viewModelFactory by lazy {
+    GameViewModelFactory(level, requireActivity().application)
+}
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[GameViewModel::class.java]
+}
+    ///////
 
     private val tvOptions by lazy {
         mutableListOf<TextView>().apply {
@@ -57,8 +64,8 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
-        viewModel.starGame(level)
         setClickListenersToOptions()
+
     }
 
     private fun setClickListenersToOptions() {
