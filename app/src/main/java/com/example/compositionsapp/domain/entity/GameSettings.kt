@@ -9,11 +9,5 @@ data  class GameSettings(
     val minCountOfRightAnswers:Int,
     val minPercentOfRightAnswers:Int,
     val gameTimeSeconds:Int
-):Parcelable{
-    ///не правильное решение
-    val minCountOfRightAnswersString:String
-        get() = minCountOfRightAnswers.toString()
+):Parcelable
 
-    val minPercentOfRightAnswersString:String
-        get() = minPercentOfRightAnswers.toString()
-}

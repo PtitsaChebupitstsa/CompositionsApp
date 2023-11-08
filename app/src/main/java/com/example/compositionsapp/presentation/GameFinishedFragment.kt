@@ -16,10 +16,7 @@ import com.example.compositionsapp.databinding.FragmentGameFinishedBinding
 import java.lang.RuntimeException
 
 class GameFinishedFragment : Fragment() {
-
-
     private val args by navArgs<GameFinishedFragmentArgs>()
-
     private var _binding: FragmentGameFinishedBinding? = null
     private val binding: FragmentGameFinishedBinding
         get() = _binding ?: throw RuntimeException("FragmentGameFinishedBinding == null")
@@ -32,11 +29,10 @@ class GameFinishedFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupClickListeners()
-        endGameStats()
+        binding.gameResult = args.gameResult
     }
 
     private fun setupClickListeners() {
@@ -44,38 +40,6 @@ class GameFinishedFragment : Fragment() {
             retryGame()
         }
     }
-
-
-    private fun endGameStats() {
-        binding.gameResult= args.gameResult
-        binding.emojiResult.setImageResource(getSmileResId())
-//        binding.tvRequiredAnswer.text = getString(
-//            R.string.required_number_of_correct,
-//            args.gameResult.gameSettings.minCountOfRightAnswers.toString()
-//        )
-//        binding.tvScoreAnswer.text =
-//            getString(R.string.your_score, args.gameResult.countOfRightAnswers.toString())
-//        binding.tvRequiredPercentage.text = getString(
-//            R.string.required_percentage_of_correct_answers,
-//            args.gameResult.gameSettings.minPercentOfRightAnswers.toString()
-//        )
-        binding.tvScorePrecentage.text =
-            getString(R.string.percentage_of_correct_answers, getPercentOfRightAnswer().toString())
-
-    }
-
-    private fun getPercentOfRightAnswer() = with(args.gameResult) {
-        if (countOfQuestions == 0) 0 else ((countOfRightAnswers / countOfQuestions.toDouble()) * 100).toInt()
-    }
-
-    private fun getSmileResId(): Int {
-        return if (args.gameResult.winner) {
-            R.drawable.ic_smile
-        } else {
-            R.drawable.ic_sad
-        }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -84,8 +48,4 @@ class GameFinishedFragment : Fragment() {
     private fun retryGame() {
         findNavController().popBackStack()
     }
-
-
 }
-
-
