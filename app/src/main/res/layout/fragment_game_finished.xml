@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout>
+    <data><variable
+        name="gameResult"
+        type="com.example.compositionapp.domain.entity.GameResult" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -31,7 +38,7 @@
         android:id="@+id/tv_required_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/required_number_of_correct"
+        android:text="@{gameResult.gameSettings.minCountOfRightAnswersString}"
         android:textSize="16sp"
         android:layout_margin="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +49,7 @@
         android:id="@+id/tv_score_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/your_score"
+        android:text="@{gameResult.countOfRightAnswersString}"
         android:textSize="16sp"
         android:layout_margin="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +60,7 @@
         android:id="@+id/tv_required_percentage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/required_percentage_of_correct_answers"
+        android:text="@{gameResult.gameSettings.minPercentOfRightAnswersString}"
         android:textSize="16sp"
         android:layout_margin="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,3 +78,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_required_percentage" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+    </layout>
