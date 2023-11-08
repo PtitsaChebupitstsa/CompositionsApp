@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
+import androidx.navigation.fragment.findNavController
 import com.example.compositionapp.domain.entity.GameResult
 import com.example.compositionsapp.R
 import com.example.compositionsapp.databinding.FragmentGameFinishedBinding
@@ -29,16 +30,14 @@ class GameFinishedFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //нажатие кноппи назад в фрагменте
+        setupClickListeners()
         endGameStats()
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object :OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-              retryGame()
+    }
 
-            }
-        })
+    private fun setupClickListeners() {
         binding.buttonRetry.setOnClickListener {
             retryGame()
         }
@@ -72,9 +71,9 @@ private fun getSmileResId():Int {
         super.onDestroyView()
         _binding = null
     }
-private fun  retryGame(){
-    requireActivity().supportFragmentManager.popBackStack(GameFragment.NAME,FragmentManager.POP_BACK_STACK_INCLUSIVE)
-}
+    private fun retryGame() {
+        findNavController().popBackStack()
+    }
     private fun parsArgs() {
          requireArguments().getParcelable<GameResult>(KEY_GAME_RESULT)?.let {
              gameResult = it
@@ -82,7 +81,7 @@ private fun  retryGame(){
     }
 
     companion object {
-        private const val KEY_GAME_RESULT = "game_result"
+        const val KEY_GAME_RESULT = "game_result"
         fun newInstance(gameResult: GameResult): GameFinishedFragment {
             return GameFinishedFragment().apply {
                 arguments = Bundle().apply {
@@ -94,3 +93,5 @@ private fun  retryGame(){
     }
 
 }
+////////////////////////
+
