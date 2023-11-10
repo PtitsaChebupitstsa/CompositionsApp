@@ -25,7 +25,7 @@ class GameViewModel(
     private val generateQuestionUseCase = GenerateQuestionUseCase(repository)
     private val getGameSettingsUseCase = GetGameSettingsUseCase(repository)
     private val _formattedTime = MutableLiveData<String>()
-    val formattedTine: LiveData<String>
+    val formattedTime: LiveData<String>
         get() = _formattedTime
     private var timer: CountDownTimer? = null
     private val _question = MutableLiveData<Question>()
@@ -56,7 +56,7 @@ class GameViewModel(
         starGame()
     }
 
-   private fun starGame() {
+    private fun starGame() {
         getGameSettings()
         startTimer()
         generateQuestion()
@@ -130,7 +130,7 @@ class GameViewModel(
     }
 
     private fun finishGame() {
-         _gameResult.value= GameResult(
+        _gameResult.value = GameResult(
             winner = (enoughCount.value == true) && (enoughPercent.value == true),
             countOfRightAnswers = countOfRightAnswers,
             countOfQuestions = countOfQuestions,

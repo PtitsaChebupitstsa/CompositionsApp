@@ -1,7 +1,11 @@
 package com.example.compositionsapp.presentation
 
+import android.content.Context
+import android.content.res.ColorStateList
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.example.compositionsapp.R
 
@@ -65,3 +69,37 @@ private fun getSmileResId(gameResult:Boolean):Int{
         R.drawable.ic_sad
     }
 }
+
+@BindingAdapter("enoughCount")
+fun bindProgressColor(textView: TextView,enough: Boolean){
+    textView.setTextColor(getColorByState(textView.context,enough))
+}
+@BindingAdapter("enoughPercent")
+fun bindPercentColor(progressBar: ProgressBar,enough: Boolean){
+    val color = getColorByState(progressBar.context,enough)
+    progressBar.progressTintList = ColorStateList.valueOf(color)
+
+}
+private fun getColorByState(context: Context,goodState: Boolean): Int {
+    val colotResId=  if (goodState) {
+        android.R.color.holo_green_light
+    } else {
+        android.R.color.holo_red_light
+    }
+    return ContextCompat.getColor(context,colotResId)
+}
+@BindingAdapter("numberAsText")
+fun bindNumberAsText(textView: TextView,number:Int){
+    textView.text= number.toString()
+}
+
+interface OnOptionClickListener{
+    fun onOptionClick(option:Int)
+}
+@BindingAdapter("onOptionClickListener")//слушатель клика
+fun bindOnOptionClickListener(textView: TextView,clickListener:OnOptionClickListener){
+//fun bindOnOptionClickListener(textView: TextView,clickListener:(Int)->Unit)<<<--- так не получится и нужно делать интерфейс
+    textView.setOnClickListener {
+        clickListener.onOptionClick(textView.text.toString().toInt())
+    }
+}//в байдинд адаптерах нельзя использовать лямбды выражения потому как это тип (Int)->Unit преврашается в object
